@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- =====BOX ICONS===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.scss">
+        <!-- Link CSS Bootstrap -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+        <!-- ===== FONT ===== -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+
+        <title>Mindwave</title>
+
+        <style>
+/* Container untuk Accordion */
+.accordion-container {
+    max-height: 500px; /* Set the height of the scrollable container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-bottom: 20px; /* Add space below the container if needed */
+    width: 100%; /* Ensures the accordion takes full width */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Menyembunyikan scrollbar, tapi masih menjaga fungsionalitas scroll */
+.accordion-container::-webkit-scrollbar {
+    width: 0px;  /* Menghilangkan lebar scrollbar */
+    height: 0px; /* Menghilangkan scrollbar horizontal */
+}
+
+.accordion-container {
+    -ms-overflow-style: none;  /* Untuk Internet Explorer */
+    scrollbar-width: none; /* Untuk Firefox */
+}
+
+/* Gaya untuk accordion item */
+.accordion {
+    margin-bottom: 20px; /* Add space between accordion items */
+    border: 1px solid #ddd; /* Set border around the accordion */
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Gaya untuk accordion header */
+.accordion-header {
+    background-color: var(--first-color-darken); /* Warna latar belakang saat normal */
+    color: white;
+    padding: 15px; /* Padding yang konsisten */
+    text-align: left;
+    cursor: pointer;
+    border: 0.8px solid #ddd; /* Border default */
+    outline: none;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease, border 0.3s ease; /* Menambahkan transisi border */
+    display: block;
+}
+
+/* Gaya saat header dihover */
+.accordion-header:hover {
+    background-color: var(--first-color); /* Warna latar belakang saat hover */
+    border-color: black; /* Border yang lebih gelap saat hover */
+}
+
+/* Gaya untuk konten accordion */
+.accordion-content {
+    padding: 15px; /* Padding that is the same size for the content */
+    background-color: var(--first-color);
+    display: none; /* Default to hidden */
+    max-height: 0; /* Set max-height to 0 when closed */
+    overflow: hidden; /* Hide overflow content */
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+}
+
+/* Ketika konten accordion terbuka */
+.accordion-item.active .accordion-content {
+    display: block;
+    max-height: 2000px; /* Set max-height large enough to accommodate content */
+    transition: max-height 0.3s ease-out; /* Smooth transition when opening */
+}
+
+/* Gaya saat header aktif */
+.accordion-item.active .accordion-header {
+    background-color: var(--first-color); /* Pastikan warna tetap sama saat aktif */
+    border-color: var(--first-color); /* Border yang lebih gelap saat header aktif */
+}
+
+/* Tambahkan margin agar padding konten dan header konsisten */
+.accordion-content p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Gaya untuk item list di dalam accordion-content */
+.accordion-content li {
+    font-size: 14px; /* Ukuran font */
+    line-height: 1.6; /* Spasi antar baris */
+    margin-bottom: 8px; /* Jarak antar item list */
+    list-style-type: decimal; /* Menampilkan bullet point */
+    padding-left: 20px; /* Memberikan jarak pada bullet point */
+}
+
+/* Gaya untuk item list saat hover */
+.accordion-content li:hover {
+    background-color: var(--white-color); /* Memberikan latar belakang saat hover */
+    border-radius: 3px; /* Membuat sudut lebih halus */
+    cursor: pointer; /* Menunjukkan bahwa item bisa dihover */
+}
+
+
+/* Styling untuk tab */
+.tabs {
+    display: flex;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #242121;
+    margin-right: 5px;
+}
+
+.tab:hover {
+    background-color: var(--first-color);
+}
+
+.tab-content {
+    display: none;
+    padding: 10px;
+    background-color: var(--first-color-darken);
+}
+
+.active-tab {
+    background-color: var(--first-color-darken);
+    color: white;
+}
+
+/* Load More button */
+#load-more {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+}
+
+#load-more:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+
+            
+            h3 {
+    color: var(--white-color);
+    font-size: 1.5em;
+    text-align: left;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style the journal section */
+.team {
+    padding: 0; /* Remove any padding */
+    margin: 0;  /* Remove any margin */
+}
+
+.button-container {
+  text-align: center;
+  margin: 80px auto; /* Pusatkan tombol dengan margin */
+  display: block;
+  width: 80%; /* Perpanjang hingga 80% layar */
+  max-width: 600px; /* Batasi lebar maksimal */
+  color: var(--white-color);
+  padding: 1.125rem 2rem;
+  border-radius: .5rem;
+  box-sizing: border-box;
+  z-index: 10; /* Pastikan tombol tidak tertutupi */
+}
+
+
+      .container-button:hover {
+            background-color: var(--first-color-darken);
+}  
+
+      .open-modal-btn {
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+          border-radius: 5px;
+      }
+
+    /* Modal background */
+.journal-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+    padding-top: 60px;
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Adjust based on need */
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+/* Close button */
+.close-modal {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea, select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+      .close-modal:hover {
+          color: red;
+      }
+
+      h2 {
+          text-align: center;
+          margin-top: 0;
+      }
+
+      label {
+          display: block;
+          margin: 10px 0 5px;
+      }
+
+      select, textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid var(--first-color);
+          border-radius: 5px;
+      }
+
+      button {
+          background-color: black;
+          color: white;
+          border: none;
+          padding: 10px 15px;
+          font-size: 16px;
+          cursor: pointer;
+          border-radius: 5px;
+          width: 100%;
+      }
+
+
+      #journalHistory {
+  margin-top: 20px;
+}
+
+.entry-container {
+    padding: 10px;
+    border: 1px solid #ccc; /* Opsional: Untuk memisahkan entri */
+    border-radius: 5px;
+    margin-bottom: 10px; /* Memberi jarak antar entri */
+    background-color: #f9f9f9; /* Latar belakang untuk entri */
+    cursor: pointer; /* Tunjukkan bahwa elemen dapat diklik */
+    position: relative; /* Penting untuk positioning tombol "Hapus" */
+}
+
+.hidden {
+    display: none; /* Sembunyikan elemen */
+}
+
+.entry-container .btn-danger {
+    position: center;
+    top: 5px; /* Jarak dari atas */
+    right: 5px; /* Jarak dari kanan */
+    z-index: 1; /* Pastikan tombol di atas konten lain */
+}
+
+#historyContainer {
+    max-height: 300px; /* Batas tinggi maksimum */
+    overflow-y: auto; /* Aktifkan scroll vertikal */
+    padding: 10px;
+    border: 1px solid var(--white-color); /* Opsional: Untuk visualisasi area */
+    border-radius: 5px;
+    background-color: var(--first-color); /* Opsional: Warna latar belakang */
+}
+
+/* Style untuk scrollbar */
+#historyContainer::-webkit-scrollbar {
+    width: 8px; /* Lebar scrollbar */
+    display: none;
+}
+
+#historyContainer::-webkit-scrollbar-thumb {
+    background-color: #888; /* Warna bagian thumb (bagian yang digeser) */
+    border-radius: 4px; /* Membuat sudut thumb lebih halus */
+    
+}
+
+#historyContainer::-webkit-scrollbar-thumb:hover {
+    background-color: var(--white-color); /* Warna thumb saat hover */
+}
+
+#historyContainer::-webkit-scrollbar-track {
+    background-color: var(--first-color-darken); /* Warna track (area tempat thumb bergerak) */
+    border-radius: 4px;
+}
+
+.search-input {
+    border: none;
+    border-radius: 50px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: var(--first-color); /* Ganti dengan warna latar belakang yang diinginkan */
+    color: black; /* Ganti dengan warna teks yang diinginkan */
+    margin-top: 30px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+}
+
+
+</style>
+    </head>
+    <body>
+        <!--===== HEADER =====-->
+        <header class="l-header">
+            <nav class="nav bd-grid">
+                <div>
+                    <a href="#" class="nav__logo">Logo</a>
+                </div>
+                
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+
+                <div class="nav__menu" id="nav-menu">
+                    <div class="nav__close" id="nav-close">
+                        <i class='bx bx-x'></i>
+                    </div>
+
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
+                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="#team" class="nav__link">Notes</a></li>
+                        <li class="nav__item"><a href="#artikel" class="nav__link">Artikel</a></li>
+                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <main class="l-main">
+            <!--===== HOME =====-->
+            <section class="home" id="home">
+                <div class="home__container bd-grid">
+                    <div class="home__img">
+                        <img src="assets/img/img1.png" alt="" data-speed="-2" class="move">
+                        <img src="assets/img/img2.png" alt="" data-speed="2" class="move">
+                        <img src="assets/img/img3.png" alt="" data-speed="2" class="move">
+                        <img src="assets/img/img4.png" alt="" data-speed="-2" class="move">
+                        <img src="assets/img/img5.png" alt="" data-speed="-2" class="move">
+                        <img src="assets/img/img6.png" alt="" data-speed="2" class="move">
+                    </div>
+
+                    <div class="home__data">
+                        <h1 class="home__title"><span style="opacity: 0.5;">Mindwave</span><br> Know Your Emotions</h1>
+                        <p class="home__description">Discover the best way to understand and manage your emotions <br> Today.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!--===== ABOUT =====-->
+            <section class="about" id="about">
+                <div class="about__container bd-grid">
+                    <div class="about__data">
+                        <h1 class="about__title">Kenalan Yuk, Sama Mindwave</h1>
+                        <p class="about__description">
+                            MindWave hadir untuk memberikan solusi bagi remaja dalam mengelola kesehatan mental mereka. Aplikasi ini dirancang khusus dengan berbagai fitur yang membantu penggunanya untuk mengenali dan memahami emosi yang mereka rasakan, mulai dari perasaan bahagia hingga kesedihan atau kecemasan. Dengan MindWave, kamu bisa menulis jurnal pribadi tentang perasaan, pikiran, dan pengalamanmu sehari-hari. Setiap catatan yang kamu tulis akan membantu kamu lebih sadar akan kondisi emosional diri sendiri, sehingga kamu bisa membuat keputusan yang lebih baik dalam menghadapi tantangan hidup.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!--===== TEAM =====-->
+            <section class="team" id="team">
+                <div class="team__container bd-grid">
+                    <div id="journalHistory">
+                        <h3>Riwayat Catatan</h3>
+                        <div id="historyContainer"></div>
+                    </div>
+
+                    <div class="team__data">
+                        <h1 class="team__title">Mau cerita tapi <span> Kamu Lanang ?</h1>
+                        <p class="team__description">Ceritain aja di MindWave. <br> Jangan di pendam, nanti gakuat, Ceritain aja di notes.</p>
+                        <a href="#" class="about__button" class="open-modal-btn"id="openJournalModal">Get Notes</a>
+                    </div>
+                </div>
+            </section>
+
+            <section>       
+                <div class="journal-modal" id="journalModal">
+                    <div class="modal-content">
+                        <span class="close-modal" id="closeJournalModal">&times;</span>
+                        <h2>Catatan Emosi</h2>
+                        <hr>
+                        <form id="emotionForm">
+                            <label for="emotion">Emosi yang dirasakan:</label>
+                            <hr>
+                            <select id="emotion" name="emotion" required>
+                                <option value="senang">Senang</option>
+                                <option value="sedih">Sedih</option>
+                                <option value="cemas">Cemas</option>
+                                <option value="marah">Marah</option>
+                            </select>
+        
+                            <label for="thoughts">Pikiran Anda:</label>
+                            <hr>
+                            <textarea id="thoughts" name="thoughts" placeholder="Tuliskan pikiran Anda di sini..." required></textarea>
+        
+                            <label for="feelings">Perasaan Anda:</label>
+                            <hr>
+                            <textarea id="feelings" name="feelings" placeholder="Tuliskan perasaan Anda di sini..." required></textarea>
+                            <hr>
+                            <button type="submit">Simpan</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!--===== Artikel =====-->
+<section class="artikel" id="artikel">
+    <div class="artikel__container bd-grid">
+        <h1 class="artikel__title">Gangguan kesehatan mental yang paling umum</h1>
+    
+        <!-- Search Box -->
+        <input type="text" id="searchInput" class="search-input" placeholder="Cari artikel...">
+
+      <!-- Accordion Container -->
+  <!-- Accordion Container -->
+  <div class="accordion-container">
+    
+    <!-- Accordion 1 -->
+    <div class="accordion">
+        <div class="accordion-item">
+            <button class="accordion-header">Apa itu <strong>Stress ?</strong></button>
+            <div class="accordion-content">
+                <p>Stres adalah sebuah kondisi yang dirasakan saat seseorang menghadapi tantangan, atau berada dalam situasi yang mengharuskan kita menyesuaikan diri secara cepat dengan sebuah perubahan. Ketika stres membuat kita menjadi lebih terpacu dan termotivasi, stres ini dinamakan eustress atau stress yang positif. Eustress bermanfaat dalam memacu kreativitas, menimbulkan inspirasi dan rasa bahagia, serta menyehatkan tubuh. Eustress diperlukan, misalnya untuk membantu kita menyelesaikan pekerjaan sebelum tenggat waktu yang diberikan, mengejar prestasi atau pencapaian dan lain sebagainya.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">Stress itu seperti apa ?</button>
+            <div class="accordion-content">
+                <p>Saat mengalami <strong>stress</strong>, tubuh akan mengeluarkan hormon kortisol dan adrenalin, yang memicu reaksi dalam <strong>tubuh</strong> seperti jantung berdetak lebih cepat, otot menegang, napas lebih cepat, tekanan darah dan sinyal kewaspadaan meningkat.</p>
+            </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa itu <strong>Distress ?</strong> </button>
+        <div class="accordion-content">
+            <p>Sebaliknya, distress adalah stres negatif yang timbul ketika kita tidak sanggup mengatasi tekanan atau tantangan yang dihadapi. Distress adalah perasaan tidak nyaman, kewalahan, cemas, dan gelisah, yang jika berkelanjutan dengan intensitas tinggi, lama kelamaan akan merusak kesehatan mental.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa sih penyebab Stress ?</button>
+        <div class="accordion-content">
+            <p>Stres dapat terjadi pada siapa saja dan penyebabnya beragam, seperti. Beban Kerja, Tuntutan tinggi dan kurangnya keseimbangan antara pekerjaan dan kehidupan pribadi dapat memicu stres. Krisis Ekonomi, Masalah keuangan atau hutang yang menumpuk dapat menimbulkan kecemasan dan tekanan.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Cara mengetahui apakah kita Stress?</button>
+        <div class="accordion-content">
+            <p><strong>Berikut ini adalah beberapa ciri-ciri stres berat:</strong> 
+                <li>Mudah gelisah, merasa frustrasi, dan sering terlihat murung.</li> 
+                <li>Mudah tersinggung.</li> 
+                <li>Merasa dirinya tidak baik dan tidak berharga.</li> 
+                <li>Selalu merasa tertekan.</li> 
+                <li>Tidak dapat berpikir dengan tenang.</li> 
+                <li>Tidak berenergi atau bergairah.</li> 
+                <li>Tidak bisa tidur atau mengalami insomnia.</li> 
+                <li>Mudah sakit.</li> 
+            </p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa ciri-ciri Stres ringan?</button>
+        <div class="accordion-content">
+            <p><strong>Ciri-Ciri Stres Ringan yang Perlu Diwaspadai</strong> 
+                <li>Mood Swing.</li> 
+                <li>Sensitif.</li> 
+                <li>Susah Tidur.</li> 
+                <li>Sulit Fokus dan Berkonsentrasi.</li> 
+                <li>Nafsu makan berkurang.</li> 
+                <li>Tegangan pada tubuh.</li> 
+                <li>Cepat merasa lelah.</li> 
+                <li>Nafsu makan berubah.</li> 
+            </p>
+        </div>
+    </div>
+        <div class="accordion-item">
+            <button class="accordion-header">Tingkah laku orang Stress?</button>
+            <div class="accordion-content">
+                <p>Orang yang mengalami stres umumnya akan <strong>sulit untuk menenangkan pikiran, merasa rendah diri, kesepian, bingung, menghindari orang lain, sulit mengendalikan diri, hingga depresi.</strong> Perubahan kondisi fisik juga bisa menjadi tanda seseorang mengalami stres.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">Apa efek dari Stress ?</button>
+            <div class="accordion-content">
+                <p><strong>Insomnia, sakit kepala, gangguan kepribadian, gangguan kecemasan, depresi. Penyakit kardiovaskular, hipertensi, gangguan irama jantung. Sakit perut, sembelit, diare, tukak lambung.</strong></p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">Apa sih penyebab Stress ?</button>
+            <div class="accordion-content">
+                <p>Stres dapat terjadi pada siapa saja dan penyebabnya beragam, seperti. Beban Kerja, Tuntutan tinggi dan kurangnya keseimbangan antara pekerjaan dan kehidupan pribadi dapat memicu stres. Krisis Ekonomi, Masalah keuangan atau hutang yang menumpuk dapat menimbulkan kecemasan dan tekanan.</p>
+            </div>
+        </div>
+</div>
+
+<!-- Accordion 2 -->
+<div class="accordion">
+    <div class="accordion-item">
+        <button class="accordion-header">Apa itu Anxiety ?</button>
+        <div class="accordion-content">
+            <p>Generalized  <strong>Anxiety </strong> Disorder atau Gangguan Kecemasan umum Adalah kondisi perasaan khawatir dan cemas wajar dirasakan sesekali oleh anak-anak, misalnya saja karena masalah pertemanan, keharusan berbicara di depan umum, atau menghadapi ujian. Namun, ketika rasa khawatir tidak kunjung reda sampai-sampai mengganggu kehidupan sehari-hari, kecemasan dapat berkembang menjadi suatu masalah. Kabar baiknya, kecemasan ini bisa diatasi dengan bantuan yang tepat dari tenaga profesional dan upaya membangun kemampuan menghadapi masalah secara positif.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa itu Kecemasan ?</button>
+        <div class="accordion-content">
+            <p>Cemas adalah perasaan yang timbul ketika kita khawatir atau takut akan sesuatu. Rasa takut dan panik adalah hal yang manusiawi. Setelah beberapa waktu, kita biasanya merasa lebih tenang dan nyaman.
+
+                Rasa khawatir dan takut, dalam batasan tertentu, dapat membantu menjaga kita, bahkan melindungi dari marabahaya. Akan tetapi, ada kalanya, rasa cemas membuat keadaan terasa lebih buruk dari yang sebenarnya dan membuat kita kewalahan. Kekhawatiran yang berlangsung berkepanjangan dapat menyebabkan kecemasan yang berjangka panjang.
+                
+                Jika kecemasan membuat anak tidak bisa melakukan hal-hal yang biasanya mereka sukai, atau membuat mereka khawatir ataupun mudah panik tanpa penyebab yang jelas, maka penting untuk membantu mereka merasa lebih baik, termasuk dengan mencarikan dukungan yang diperlukan.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa penyebab Kecemasan ?</button>
+        <div class="accordion-content">
+            <p>Sulit untuk mengenali satu penyebab utama dari kecemasan. Ketika menghadapi situasi yang menimbulkan stres, akan ada semacam alarm peringatan yang menyala di otak kita dan menandakan ada sesuatu yang tidak beres dan perlu kita hadapi. Supaya situasi sulit ini lekas berakhir, otak kita akan membuat kita lebih waspada, fokus hanya pada situasi itu, bahkan memompa lebih banyak darah ke kaki agar kita dapat melarikan diri.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa perbedaan Anxiety dan Panick Attack ?</button>
+        <div class="accordion-content">
+            <p><strong>Anxiety</strong> memiliki gejala khas yang tidak dimiliki oleh pengidap panic attack, yakni gangguan tidur dan nyeri pada otot. Sedangkan pada <strong>Panic attack</strong> disorder, gejala pembedanya adalah rasa takut yang sangat hebat seolah mengancam nyawa, kehilangan kendali atas diri, dan mengalami depersonalisasi.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apakah Anxiety bisa hilang ?</button>
+        <div class="accordion-content">
+            <p>Rasa cemas tidak mungkin dapat dihilangkan sepenuhnya karena itu merupakan reaksi terhadap kondisi stres pada lingkungan Anda. Namun, dengan pengobatan dan penanganan yang sesuai, seseorang dengan gangguan cemas tsb dapat mengatasi rasa cemas yang timbul sehingga tidak lagi mengganggu kehidupan sehari-hari.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa akibat Anxiety dibiarkan ?</button>
+        <div class="accordion-content">
+            <p>Jika dibiarkan berlarut-larut, gangguan cemas bisa memicu komplikasi serius yang akan berpengaruh pada kondisi fisik, misalnya masalah pencernaan atau usus (seperti sindrom iritasi usus besar atau tukak saluran cerna), sakit kepala dan migrain, gangguan tidur, gangguan kesehatan jantung, serta penyakit kronis lain.</p>
+        </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Ciri-ciri Anxiety </button>
+        <div class="accordion-content">
+            <p><strong>Jenis kondisi kesehatan mental atau yang disebut gangguan kecemasan, yakni anxiety disorder.</strong> Dilansir dari Cleveland Clinic, anxiety membuat Anda sulit menjalani aktivitas sehari-hari. Gejala anxiety, antara lain perasaan gugup, panik dan takut, hingga detak jantung yang cepat.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Berapa lama Anxiety bisa hilang ?</button>
+        <div class="accordion-content">
+            <p>Penatalaksanaan gangguan cemas menyeluruh atau generalized anxiety disorder (GAD) meliputi psikoterapi seperti cognitive behavioral therapy (CBT) serta medikamentosa dengan pilihan utama selective serotonin reuptake inhibitors (SSRI). Biasanya pengobatan dilakukan selama 6 – 12 bulan untuk menghilangkan gejala.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Anxiety disebabkan karena apa ?</button>
+        <div class="accordion-content">
+            <p>Adanya aktivitas berlebihan pada bagian otak yang mengendalikan emosi dan tingkah laku. Senyawa serotonin dan noradrenalin yang tidak seimbang dalam otak pengidap. Memiliki kerabat dekat dengan gangguan kecemasan umum, sehingga ini akan meningkatkan risiko lima kali lebih besar untuk mengalami kondisi sejenis.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa yang dirasakan penderita Anxiety</button>
+        <div class="accordion-content">
+            <p>Gejala <strong>Anxiety Disorder</strong>.
+            <br>
+            <br>
+                Rasa takut ini sering kali tidak rasional dengan situasi dan usia penderitanya. Selain itu, beberapa gejala gangguan kecemasan yang perlu Anda kenali adalah sebagai berikut ini: Tubuh gemetar. Berkeringat dingin.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Bagaimana cara mengatasi Anxiety ?</button>
+        <div class="accordion-content">
+            <p><strong>Bagaimana Mengelola dan Mengatasi Kecemasan</strong>
+                <li>Mulailah dengan menciptakan <strong>Growth Mindset</strong> atau pikiran yang terbuka.</li>
+                <li>Sadari bagaimana kecemasan mempengaruhi ke tubuh dan kemudian coba lakukan teknik bernafas yang menenangkan.</li>
+                <li>Berbicara dengan diri untuk mengatasinya.</li>
+                <li>Hadapi situasinya.</li>
+                <li>Konsultasi ke Psikolog atau Psikiater.</li>
+               </p>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- Accordion 3 -->
+<div class="accordion">
+    <div class="accordion-item">
+        <button class="accordion-header">Depresi itu seperti apa ?</button>
+        <div class="accordion-content">
+            <p>Depresi adalah gangguan mood, kondisi emosional berkepanjangan yang mewarnai proses berpikir, berperasaan dan berperilaku seseorang. Seseorang yang depresi memperlihatkan perasaan tidak berdaya dan kehilangan harapan, disertai perasaan sedih, kehilangan minat dan kegembiraan.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Penyebab Depresi</button>
+        <div class="accordion-content">
+            <p>Gangguan suasana hati ini merupakan respons mental seseorang dalam menghadapi berbagai persoalan hidup. Biasanya, depresi akan muncul ketika semua masalah sudah menumpuk di otak tetapi tak tahu bagaimana cara mengatasinya. 
+                Sebenarnya, tidak ada penyebab utama dan tunggal mengapa seseorang bisa mengalami gangguan depresi. Namun, ada pencetus atau faktor yang membuat seseorang bisa mengalaminya.
+                Berikut ini sejumlah faktor yang memicu munculnya depresi: 
+                
+                <li>Riwayat keluarga</li>
+                <li>Masalah kesehatan fisik</li>
+                <li>Pengalaman dan trauma masa kecil</li>
+                <li>Peristiwa kehidupan yang penuh tekanan</li>
+                <li>Berakhirnya hubungan, ditinggal oleh orang dicintai, masalah keuangan, dan sebagainya</li>
+                <li>Menderita penyakit kronis atau serius</li>
+                <li> Ketergantungan jenis obat tertentu</li>
+                <li>Diintimidasi, bullying atau diserang</li>
+        
+                </p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa itu Depresi?</button>
+        <div class="accordion-content">
+            <p>Depresi adalah gangguan mood, kondisi emosional berkepanjangan yang mewarnai proses berpikir, berperasaan dan berperilaku seseorang. Seseorang yang depresi memperlihatkan perasaan tidak berdaya dan kehilangan harapan, disertai perasaan sedih, kehilangan minat dan kegembiraan.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Dampak depresi pada kesehatan fisik</button>
+        <div class="accordion-content">
+            <p>Depresi yang tidak diatasi, akan berbahaya bagi diri sendiri, maupun yang ada di sekitarnya. Pasalnya, seseorang dengan depresi cenderung mencerna persoalan hidup dari sisi gelapnya, memandang pesimis terhadap masa depan, berpikir negatif tentang diri sendiri maupun orang lain. 
+            <br>
+            <br>
+                Selain itu, seseorang yang mengalami cenderung sulit berpikir objektif dan rasional, pikiran otomatisnya didominasi oleh ketidakberdayaan hingga keinginan untuk menyakiti diri sendiri dan bunuh diri.
+                <br>
+                <br>
+                Tak hanya itu saja, depresi dapat memengaruhi kesehatan fisik. Kecemasan yang berlebihan akan memacu hormon tertentu dalam tubuh, menyebabkan denyut jantung meningkat dan tekanan darah berlebihan. 
+                <br>
+                <br>
+                Baik pada anak-anak maupun orang dewasa, depresi pada akhirnya akan menganggu perubahan nafsu makan sehingga menimbulkan masalah pada perubahan berat badan, bisa turun atau naik. 
+                <br>
+                <br>
+                Depresi juga dapat menurunkan daya tahan tubuh, akibatnya tubuh gampang terkena penyakit. Selain itu, depresi memengaruhi metabolisme gula darah di dalam tubuh, juga menurunkan gairah seksual. Tak jarang, depresi membuat penderitanya menjadi sakit kepala dan mengalami gangguan pencernaan yang tidak memberikan respon terhadap pengobatan.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Ciri-Ciri Depresi</button>
+        <div class="accordion-content">
+            <p>Ketika seseorang mengalami depresi, maka ini sangat mempengaruhi orang dengan cara yang berbeda, termasuk pikiran, tubuh, dan perilaku mereka. Depresi yang masih tahap ringan, sebagian besar orang tak merasakan gejalanya. 
+                Lalu, ketika semakin memuncak akan timbul gangguan suasana hati yang sulit dihindari.
+                Ada beberapa gejala depresi yang paling umum ditemukan antara lain:
+            
+                <li> Merasa sedih, murung, suasana hati kosong, putus asa, dan perasaan gelisah.</li>
+                <li> Mudah kehilangan energi dan tenaga, perasaan letih, lemah, lesu, kelelahan.</li>
+                <li> Gangguan tidur (bisa berlebihan, bisa juga kurang dari lama tidur biasanya).</li>
+                <li> Kehilangan minat dan kegairahan terhadap berbagai aktivitas yang sebelumnya disukai.</li>
+                <li> Merasa bersalah, pesimis, dan tidak berguna.</li>
+                <li> Tidak mampu berkonsentrasi.</li>
+                <li> Muncul pikiran-pikiran untuk menyakiti diri sendiri hingga bunuh diri.</li>
+                
+                Gejala depresi pada anak-anak adalah kehilangan minat bermain dan bergaul dengan teman-temannya sehingga mereka cenderung suka menyendiri. Depresi pada anak juga menyebabkan ia lebih mudah marah, menangis, dan menjadi rewel.
+                </p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Cara Mengatasi Depresi</button>
+        <div class="accordion-content">
+            <p>Cara mengatasi depresi
+                Penderita depresi membutuhkan dukungan dari lingkungan sekitar, dan masyarakat terkecil di lingkungan kita tinggal adalah keluarga. 
+                
+                Keluargalah obat yang paling tepat dalam masalah gangguan jiwa seperti depresi.
+                <br>
+                <br>
+                Anak-anak pun tak luput dari gangguan kejiwaan, karena ketidakmampuan mereka untuk menangani masalah yang dihadapi. Seorang anak masih sangat terbatas dalam memahami masalah dan menyelesaikan masalahnya. 
+                <br>
+                <br>
+                Ada beberapa cara mengatasi depresi yang dapat Sahabat MIKA lakukan, yaitu: 
+                <br>
+                <br>
+                <li>Melakukan pola hidup teratur dengan istirahat cukup (6-8 jam sehari) dapat menurunkan tingkat depresi.</li>
+                <li>Pola makan seimbang agar stamina tubuh terjaga.</li>
+                <li>Olahraga dan rekreasi adalah salah satu cara untuk mencegah terjadinya depresi.</li>
+                <li>Sikap hidup yang positif, dengan berpikir rasional dan objektif akan mencegah gejala depresi.</li>
+                <li>Memiliki planning yang rasional dalam hidup, dan dapat menerima kondisi yang tak mungkin dapat diubah.</li>
+                <li>Memiliki kerabat atau sahabat yang dapat sewaktu waktu saling berbagi dan saling membantu.</li>
+                <li>Memiliki me time alias waktu untuk diri sendiri, di antara kesibukan yang padat.</li>
+                <li>Lakukan kegiatan seperti spa, meditasi, yoga, dan relaksasi.</li>
+                <li>Mengembangkan kehidupan spiritual.</li>
+                <br>
+                <br>
+                Jika gangguan depresi tidak kunjung membaik, konsultasikan dengan psikiater agar Anda dapat segera mendapatkan pertolongan. 
+                <br>
+                <br>
+                Psikiater akan melakukan berbagai upaya penanganan untuk menyembuhkan depresi yang Sahabat MIKA alami, seperti konseling atau psikoterapi, hingga pemberian obat-obatan.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa yang kita rasakan saat depresi?</button>
+        <div class="accordion-content">
+            <p>Gejala <strong>Depresi</strong>
+               <br>
+               <br>
+                Merasa khawatir dan cemas berlebihan. Sangat sensitif, seperti mudah marah, tersinggung, atau sedih. Sulit untuk memusatkan fokus dan konsentrasi. Kesulitan untuk berpikir dan mengambil keputusan.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa perbedaan Stress dan Depresi?</button>
+        <div class="accordion-content">
+            <p>Stres dan depresi adalah dua kata berbeda yang sering diartikan sama. <strong>Stres adalah jenis ketegangan yang muncul akibat kehidupan sehari-hari. Sedangkan, depresi adalah perubahan suasana hati yang disebabkan oleh ketidakseimbangan hormon.</strong> Kedua kata tersebut seharusnya memiliki arti yang sangat berbeda.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Accordion 4 -->
+<div class="accordion">
+    <div class="accordion-item">
+        <button class="accordion-header">Skizofrenia itu Seperti apa?</button>
+        <div class="accordion-content">
+            <p>Skizofrenia adalah <strong>gangguan mental yang terjadi dalam jangka waktu panjang, gangguan tersebut menyebabkan penderita mengalami halusinasi, delusi atau waham, kekacauan berpikir, dan perubahan perilaku.</strong> Penderita skizofrenia pada umumnya mengalami kesulitan untuk membedakan antara kenyataan dengan pikiran yang ada.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Skizofrenia kambuh karena apa ?</button>
+        <div class="accordion-content">
+            <p>Penyebab utama kambuhnya pasien skizofrenia adalah <strong>tidak mengonsumsi obat secara teratur atau sesuai resep.</strong> Penyalahgunaan narkotika atau alkohol juga bisa menjadi pemicunya. Selain itu, stres dalam kehidupan juga bisa membuat pasien skizofrenia kambuh.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apakah penderita skizofrenia sadar ?</button>
+        <div class="accordion-content">
+            <p><strong>biasanya sampai di titik seseorang menderita skizofrenia dirinya tidak sadar jika mengidap skizofrenia.</strong></p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Bagaimana skizofrenia memengaruhi kehidupan sosial?</button>
+        <div class="accordion-content">
+            <p>Keterlibatan sosial yang penting bagi kesehatan dan kesejahteraan dapat menjadi hal yang sulit bagi penderita skizofrenia. Penelitian sebelumnya menunjukkan bahwa meskipun menunjukkan minat dalam interaksi sosial, penderita skizofrenia melaporkan menghabiskan lebih sedikit waktu dengan orang lain dan merasa kesepian .</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Cara Mengetahui apakah kita Skizofrenia?</button>
+        <div class="accordion-content">
+            <p><strong>Berikut gejala yang meliputi:</strong>
+                <br>
+                <br>
+                <li>Berkurangnya intensitas berbicara.</li>
+                <li>Respons emosional yang aneh terhadap situasi.</li>
+                <li>Kurangnya emosi atau ekspresi.</li>
+                <li>Kehilangan minat atau kegembiraan seumur hidup.</li>
+                <li>Mengisolasi diri untuk bersosial.</li>
+                <li>Sulit untuk merasakan kesenangan.</li>
+                <li>Sulit untuk memulai atau menindaklanjuti sesuatu rencana.</li>
+                </p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apakah skizofrenia bisa kembali normal?</button>
+        <div class="accordion-content">
+            <p>Sayangnya penyakit skizofrenia <strong>tidak dapat disembuhkan, namun hanya dapat dikontrol.</strong> Dengan menjalani pengobatan secara teratur, umumnya penderita skizofrenia dapat hidup layaknya orang normal pada umumnya dan tidak memiliki keluhan apapun.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Bagaimana rasanya mengidap skizofrenia?</button>
+        <div class="accordion-content">
+            <p>Ketika menyerang seseorang, skizofrenia akan membuat pengidapnya mengalami delusi, halusinasi, kekacauan dalam berpikir, mengasingkan diri dari orang lain, hingga mengalami perubahan perilaku.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apakah berbicara sendiri termasuk skizofrenia?</button>
+        <div class="accordion-content">
+            <p>Di beberapa kasus, berbicara dengan diri sendiri bisa menjadi gejala awal penyakit mental. Bergumam dan berbicara secara acak bisa jadi gejala awal skizofrenia.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Accordion 5 -->
+<div class="accordion">
+    <div class="accordion-item">
+        <button class="accordion-header">Apa itu penyakit Obssesive compulsive disorder?</button>
+        <div class="accordion-content">
+            <p>Obsessive compulsive disorder atau yang biasa dikenal dengan sebutan OCD adalah masalah mental yang membuat pengidapnya melakukan suatu tindakan tertentu secara berulang-ulang. Hal tersebut tidak dapat dikontrol secara langsung oleh penderita OCD.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Tipe kepribadian apa yang memiliki OCD ?</button>
+        <div class="accordion-content">
+            <p>Telah ditetapkan bahwa ciri-ciri kepribadian klaster-C umum ditemukan pada pasien dengan OCD. Perlu dicatat bahwa penelitian saat ini menemukan bahwa ciri-ciri kepribadian klaster-B (ciri-ciri ambang dan narsistik) umum ditemukan pada pasien dengan OCD.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">OCD ringan seperti apa ?</button>
+        <div class="accordion-content">
+            <p>Gejala perilaku OCD ringan yang kompulsif antara lain: Berkali-kali mengecek ulang sesuatu secara berlebihan misalnya mencuci tangan berkali-kali. Berulang kali menanyakan kabar orang terdekat untuk memastikan mereka aman dan dalam keadaan baik-baik saja.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa itu kepribadian OCD?</button>
+        <div class="accordion-content">
+            <p>Obsessive compulsive disorder atau OCD adalah gangguan kesehatan mental yang sering kali dikaitkan dengan kepribadian perfeksionis, yaitu tipe kepribadian seseorang yang ditandai dengan keinginan untuk mengejar kesempurnaan dalam segala hal.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apakah OCD berbahaya?</button>
+        <div class="accordion-content">
+            <p>Sayangnya, OCD menjadi masalah kesehatan mental yang tidak dapat disembuhkan. Meski demikian, pengidap bisa mengurangi gejala yang dapat mengganggu aktivitas dengan menjalani beberapa perawatan.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Cara mengetahui apakah kita OCD ?</button>
+        <div class="accordion-content">
+            <p><strong>Gejala Obsesi</strong>
+                <br>
+                <br>
+                <li>Merasa takut terkontaminasi setelah menyentuh benda yang disentuh orang lain.</li>
+                <li>Ragu jika sudah mengunci pintu atau mematikan kompor.</li>
+                <li>Stres yang berlebihan saat benda-benda tersusun secara tidak teratur atau tidak menghadap ke arah tertentu.</li>
+                <li>Memiliki gambaran mengemudi mobil ke arah kerumunan orang.</li>
+                </p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apa contoh OCD?</button>
+        <div class="accordion-content">
+            <p>Sebagai respons terhadap obsesi ini, orang tersebut mungkin terlibat dalam tindakan kompulsif, seperti mencuci tangan berkali-kali atau menghindari tempat-tempat yang dianggap kotor.</p>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apakah OCD selalu tentang kebersihan?</button>
+        <div class="accordion-content">
+            <p>OCD bukan hanya tentang kebersihan, melainkan gangguan mental yang ditandai oleh pikiran obsesif dan perilaku kompulsif yang berulang, seperti memeriksa, menghitung, atau merapikan. Tidak hanya kebersihan, penderita OCD bisa terobsesi dengan hal lain, seperti keamanan maupun keteraturan.</p>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Apa yang terjadi jika OCD dibiarkan?</button>
+        <div class="accordion-content">
+            <p>Gangguan OCD harus segera ditangani atau diatasi dengan perawatan tepat. Bila tidak ditangani segera, gangguan ini dapat memburuk dan merugikan fisik, mental, dan kehidupan sosial penderitanya.</p>
+        </div>
+    <div class="accordion-item">
+        <button class="accordion-header">Apakah OCD dapat di sembuhkan?</button>
+        <div class="accordion-content">
+            <p>OCD adalah gangguan mental yang <strong>tidak dapat disembuhkan secara total.</strong></p>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+</section>
+
+            
+
+<section id="contact" class="contact">
+    <div class="contact__container bd-grid">
+        <!-- Formulir Kontak -->
+        <div class="contact__form">
+            <h2 class="contact__title">Contact Us</h2>
+            <form id="contact-form" class="contact__content">
+                <input type="text" placeholder="Your Name" id="name" name="name" required class="contact__input">
+                <input type="email" placeholder="Your Email" id="email" name="email" required class="contact__input">
+                <textarea placeholder="Your Message" id="message" name="message" required class="contact__input"></textarea>
+                <button type="submit" class="contact__button">Send Message</button>
+            </form>            
+        </div>
+
+        <!-- Bagian Social Media -->
+        <div class="contact__social">
+            <h2 class="contact__title">Follow Us</h2>
+            <ul class="contact__social-list">
+                <li><a href="#" class="contact__social-link"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                <li><a href="#" class="contact__social-link"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="#" class="contact__social-link"><i class="fab fa-instagram"></i> Instagram</a></li>
+                <li><a href="#" class="contact__social-link"><i class="fab fa-linkedin-in"></i> LinkedIn</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+        </main>
+
+        <!-- Footer Information -->
+        <footer class="footer">
+            <div class="footer__container">
+                <p class="footer__text">&copy; 2024 Sulthan Ramskiw. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!--===== GSAP =====-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+
+        <!--===== MAIN JS =====-->
+        <script src="main.js"></script>
+
+        <!-- Tambahkan Skrip EmailJS -->
+        <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "dFdrpma_mDvE2BYyE",
+      });
+   })();
+
+    // Inisialisasi EmailJS
+    emailjs.init('service_xbom4nf');  // Gantilah dengan USER ID Anda
+
+    // Menangani pengiriman formulir
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Mencegah pengiriman formulir default
+
+        // Kirim email melalui EmailJS
+        emailjs.sendForm('service_xbom4nf', 'template_z27i0rq', this)
+            .then(function(response) {
+                alert('Message sent successfully!');
+            }, function(error) {
+                alert('Failed to send message. Please try again.');
+            });
+    });
+</script>
+
+
+        <!-- JavaScript for Search Feature -->
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+        let filter = this.value.toLowerCase();
+        let accordionItems = document.querySelectorAll('.accordion-item');
+        
+        accordionItems.forEach(function(item) {
+            let header = item.querySelector('.accordion-header');
+            let content = item.querySelector('.accordion-content');
+            
+            // Check if the search term is in the header or content
+            if (header.textContent.toLowerCase().includes(filter) || content.textContent.toLowerCase().includes(filter)) {
+                item.style.display = '';  // Show the item if matched
+            } else {
+                item.style.display = 'none';  // Hide the item if not matched
+            }
+        });
+    });
+</script>
+
+        <script>
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const item = header.parentElement;
+                    const isActive = item.classList.contains('active');
+        
+                    document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+        
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        </script>
+       <script>
+        // Accordion Toggle Function with Dynamic Class Target
+        function toggleAccordion(button, accordionClass) {
+            const content = button.nextElementSibling;
+            const accordion = document.querySelector(`.${accordionClass}`);
+    
+            // Ensure it only affects the clicked accordion
+            const allContents = accordion.querySelectorAll('.accordion-content');
+            allContents.forEach(content => {
+                if (content !== button.nextElementSibling) {
+                    content.style.display = 'none'; // Close others
+                }
+            });
+    
+            // Toggle the current content
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+    
+        // Tab Navigation Function (to toggle between tab contents)
+        function openTab(tabId) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tabContent => {
+                tabContent.style.display = 'none'; // Hide all tab content
+            });
+    
+            const activeTab = document.getElementById(tabId);
+            activeTab.style.display = 'block'; // Show the clicked tab content
+        }
+    </script>
+
+        <script>
+           document.addEventListener('DOMContentLoaded', () => {
+    // Referensi elemen
+    const openModalButton = document.getElementById('openJournalModal');
+    const closeModalButton = document.getElementById('closeJournalModal');
+    const journalModal = document.getElementById('journalModal');
+    const emotionForm = document.getElementById('emotionForm'); // Form referensi
+
+    // Fungsi untuk membuka modal
+    openModalButton.addEventListener('click', () => {
+        journalModal.style.display = 'block'; // Gunakan flex untuk memusatkan modal
+    });
+
+    // Fungsi untuk menutup modal
+    closeModalButton.addEventListener('click', () => {
+        journalModal.style.display = 'none';
+    });
+
+    // Tutup modal jika pengguna mengklik di luar modal konten
+    window.addEventListener('click', (event) => {
+        if (event.target === journalModal) {
+            journalModal.style.display = 'none';
+        }
+    });
+
+    // Tambahkan event listener untuk form submission
+    emotionForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Mencegah reload halaman
+
+        // Ambil data dari form
+        const emotion = document.getElementById('emotion').value;
+        const thoughts = document.getElementById('thoughts').value;
+        const feelings = document.getElementById('feelings').value;
+
+        // Struktur data
+        const entry = {
+            emotion,
+            thoughts,
+            feelings,
+            timestamp: new Date().toISOString(),
+        };
+
+        // Ambil data sebelumnya dari localStorage
+        const journalData = JSON.parse(localStorage.getItem('journalData')) || [];
+
+        // Tambahkan data baru
+        journalData.push(entry);
+
+        // Simpan kembali ke localStorage
+        localStorage.setItem('journalData', JSON.stringify(journalData));
+
+        // Tutup modal
+        journalModal.style.display = 'none';
+
+        // Reset form
+        emotionForm.reset();
+
+        // Tambahkan ke tampilan history
+        addToHistory(entry);
+
+        alert('Catatan berhasil disimpan!');
+    });
+
+    // Fungsi untuk menambahkan entri ke dalam history
+    function addToHistory(entry) {
+        const entryElement = document.createElement('div');
+        entryElement.classList.add('history-entry');
+
+        // Format waktu
+        const date = new Date(entry.timestamp);
+        const formattedDate = date.toLocaleString('id-ID', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        const formattedTime = date.toLocaleString('id-ID', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        // Membuat elemen dengan format tanggal di kiri dan jam di kanan
+        entryElement.innerHTML = `
+            <div class="entry-container" data-id="${entry.timestamp}" onclick="toggleDeleteButton(this)">
+                <p style="font-size: 0.8em; opacity: 0.7; font-family: 'Poppins', sans-serif;">
+                    <span style="float: left;">${formattedDate}</span>
+                    <span style="float: right;">${formattedTime}</span>
+                </p>
+                <hr>
+                <p><strong>Emosi:</strong> ${entry.emotion}</p>
+                <p><strong>Pikiran:</strong> ${entry.thoughts}</p>
+                <p><strong>Perasaan:</strong> ${entry.feelings}</p>
+                <hr>
+                <div class="d-flex justify-content-end mb-2">
+                    <button class="btn btn-danger btn-sm hidden" type="button" onclick="deleteEntry(this)">
+                        Hapus
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Tambahkan entri ke container
+        historyContainer.prepend(entryElement); // Menambahkan di atas
+
+        // Hitung jumlah entri
+        const entries = historyContainer.querySelectorAll('.history-entry');
+        if (entries.length >= 5) {
+            historyContainer.style.overflowY = 'auto'; // Aktifkan scroll
+            historyContainer.style.maxHeight = '300px'; // Sesuaikan tinggi
+        }
+    }
+
+    // Fungsi untuk memuat data dari localStorage saat halaman pertama kali dimuat
+    function loadHistory() {
+        const journalData = JSON.parse(localStorage.getItem('journalData')) || [];
+        journalData.forEach(addToHistory);
+    }
+
+    // Panggil fungsi untuk memuat data saat halaman dimuat
+    loadHistory();
+});
+
+function toggleDeleteButton(container) {
+    // Tutup semua tombol "Hapus" lainnya
+    document.querySelectorAll('.entry-container .btn-danger').forEach(button => {
+        button.classList.add('hidden');
+    });
+
+    // Cari tombol di dalam container yang diklik
+    const deleteButton = container.querySelector('.btn-danger');
+    if (deleteButton) {
+        deleteButton.classList.remove('hidden'); // Tampilkan tombol "Hapus"
+    }
+}
+
+function deleteEntry(button) {
+    const entryElement = button.closest('.entry-container'); // Ambil wrapper entri
+    const entryId = entryElement.getAttribute('data-id'); // Ambil ID entri
+
+    // Hapus entri dari DOM
+    entryElement.remove();
+
+    // Ambil data dari localStorage
+    let journalData = JSON.parse(localStorage.getItem('journalData')) || [];
+
+    // Hapus entri yang memiliki ID yang sama dari data
+    journalData = journalData.filter(entry => entry.timestamp !== entryId);
+
+    // Simpan kembali data ke localStorage setelah menghapus entri
+    localStorage.setItem('journalData', JSON.stringify(journalData));
+}
+
+
+
+        </script>
+    </body>
+</html>
